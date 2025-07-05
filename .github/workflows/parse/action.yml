@@ -1,0 +1,10 @@
+name: Get Variables
+
+runs:
+  using: "composite"
+  steps:
+    - name: Parse Forgejo payload
+      shell: bash
+      run: |
+        PAYLOAD_JSON='${{ toJSON(github.event.client_payload) }}'
+        echo "FORGEJO_REF=$(echo "$PAYLOAD_JSON" | jq -r '.ref')" >> $GITHUB_ENV

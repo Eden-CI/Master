@@ -1,0 +1,27 @@
+name: Clone Master
+
+runs:
+  using: "composite"
+  steps:
+    - name: Parse Forgejo payload
+      uses: ./.github/workflows/parse
+
+    - name: Print env vars
+      shell: bash
+      run: |
+        echo "Ref: $FORGEJO_REF"
+
+    - name: Checkout Repo
+      shell: bash
+      run: |
+
+        while ! git clone https://git.bixed.xyz/Bix/eden.git eden; do
+          echo "Clone failed!"
+          sleep 5
+          echo "Trying clone again..."
+          rm -rf ./eden || true
+        done
+
+        cd eden
+        git reset --hard $FORGEJO_REF
+        git submodule update --init --recursive
