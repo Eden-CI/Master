@@ -38,6 +38,8 @@ changelog() {
 echo "This is ref \`$FORGEJO_REF\` of Eden's master branch."
 echo
 changelog
+echo "## Packages"
+echo
 echo ">[!WARNING]"
 echo ">These builds are provided **as-is**. They are intended for testers and developers ONLY."
 echo ">They are made available to the public in the interest of maximizing user freedom, but you"
@@ -46,8 +48,6 @@ echo ">info to share."
 echo "> "
 echo ">Furthermore, sharing these builds and claiming they are the \"official\" or \"release\""
 echo ">builds is **STRICTLY FORBIDDEN** and may result in further action from the Eden development team."
-echo
-echo "## Packages"
 echo
 echo "### Linux"
 echo
