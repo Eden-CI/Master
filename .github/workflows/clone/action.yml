@@ -15,7 +15,7 @@ runs:
       shell: bash
       run: |
 
-        while ! git clone https://git.bixed.xyz/Bix/eden.git eden; do
+        while ! git clone https://git.eden-emu.dev/eden-emu/eden.git eden; do
           echo "Clone failed!"
           sleep 5
           echo "Trying clone again..."
