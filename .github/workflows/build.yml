@@ -144,9 +144,6 @@ jobs:
           echo "USE_WEBENGINE=false" >> $GITHUB_ENV
           echo "USE_MULTIMEDIA=true" >> $GITHUB_ENV
 
-      - name: Test
-        run: clang-cl --version
-
       - name: Get Variables and Clone
         uses: ./.github/workflows/clone
 
@@ -161,11 +158,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.arch }}-vcpkg-
 
-      - name: Set up MSVC
-        uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: ${{ matrix.arch }}
-
       - name: Install Vulkan SDK
         shell: powershell
         run: |
@@ -179,7 +171,7 @@ jobs:
           export PATH="${PATH}:${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.qt_arch }}/bin"
           export WINDEPLOYQT=windeployqt
 
-          ./.ci/windows/build.sh
+          ./.ci/windows/build.sh -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl
 
       - name: Package
         shell: bash
