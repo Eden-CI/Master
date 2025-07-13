@@ -32,7 +32,7 @@ jobs:
       - name: Pack
         run: |
           zip -r source.zip eden
-          tar cf source.tar.zst eden
+          tar czf source.tar.zst eden
 
       - name: Upload source
         uses: actions/upload-artifact@v4.6.2
