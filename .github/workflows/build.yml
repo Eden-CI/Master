@@ -144,6 +144,9 @@ jobs:
           echo "USE_WEBENGINE=false" >> $GITHUB_ENV
           echo "USE_MULTIMEDIA=true" >> $GITHUB_ENV
 
+      - name: Test
+        run: clang-cl --version
+
       - name: Get Variables and Clone
         uses: ./.github/workflows/clone
 
@@ -157,9 +160,6 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.arch }}-vcpkg-${{ github.run_id }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.arch }}-vcpkg-
-
-      - name: Test
-        run: clang-cl --version
 
       - name: Set up MSVC
         uses: ilammy/msvc-dev-cmd@v1
