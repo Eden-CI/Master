@@ -7,4 +7,10 @@ runs:
       shell: bash
       run: |
         PAYLOAD_JSON='${{ toJSON(github.event.client_payload) }}'
-        echo "FORGEJO_REF=$(echo "$PAYLOAD_JSON" | jq -r '.ref')" >> $GITHUB_ENV
+        FORGEJO_REF=$(echo "$PAYLOAD_JSON" | jq -r '.ref')
+        if [ -z "$FORGEJO_REF" ]
+        then
+          FORGEJO_REF="master"
+        fi
+
+        echo "FORGEJO_REF=$FORGEJO_REF" >> $GITHUB_ENV

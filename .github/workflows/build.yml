@@ -27,7 +27,7 @@ jobs:
           done
 
           cd eden
-          git reset --hard $FORGEJO_TAG
+          git reset --hard $FORGEJO_REF
 
       - name: Pack
         run: |
@@ -157,6 +157,9 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.arch }}-vcpkg-${{ github.run_id }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.arch }}-vcpkg-
+
+      - name: Test
+        run: clang-cl --version
 
       - name: Set up MSVC
         uses: ilammy/msvc-dev-cmd@v1
