@@ -40,6 +40,7 @@ pacman -Syu --noconfirm \
 		qt6-multimedia \
 		qt6-tools \
 		qt6-wayland \
+		quazip-qt6 \
 		sdl2 \
 		spirv-headers \
 		strace \
