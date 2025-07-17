@@ -17,6 +17,12 @@ LIBXML_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/downloa
 OPUS_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/opus-nano-$PKG_TYPE"
 MESA_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/mesa-mini-$PKG_TYPE"
 
+NOUVEAU_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/vulkan-nouveau-mini-$PKG_TYPE"
+RADEON_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/vulkan-radeon-mini-$PKG_TYPE"
+INTEL_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/vulkan-intel-mini-$PKG_TYPE"
+FREEDRENO_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/vulkan-freedreno-mini-$PKG_TYPE"
+PANFROST_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/vulkan-panfrost-mini-$PKG_TYPE"
+
 echo "Installing build dependencies..."
 echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
@@ -57,11 +63,14 @@ pacman -Syu --noconfirm \
 		zsync
 
 if [ "$(uname -m)" = 'x86_64' ]; then
-		pacman -Syu --noconfirm vulkan-intel haskell-gnutls svt-av1
-else
-		pacman -Syu --noconfirm vulkan-freedreno vulkan-panfrost
-fi
+		pacman -Syu --noconfirm haskell-gnutls svt-av1
 
+		wget --retry-connrefused --tries=30 "$NOUVEAU_URL"   -O  ./vulkan-nouveau.pkg.tar.zst
+		wget --retry-connrefused --tries=30 "$INTEL_URL"     -O  ./vulkan-intel.pkg.tar.zst
+else
+		wget --retry-connrefused --tries=30 "$FREEDRENO_URL" -O  ./vulkan-freedreno.pkg.tar.zst
+		wget --retry-connrefused --tries=30 "$PANFROST_URL"  -O  ./vulkan-panfrost.pkg.tar.zst
+fi
 
 echo "Installing debloated pckages..."
 echo "---------------------------------------------------------------"
@@ -69,6 +78,8 @@ wget --retry-connrefused --tries=30 "$LLVM_URL"   -O  ./llvm-libs.pkg.tar.zst
 wget --retry-connrefused --tries=30 "$QT6_URL"    -O  ./qt6-base-iculess.pkg.tar.zst
 wget --retry-connrefused --tries=30 "$LIBXML_URL" -O  ./libxml2-iculess.pkg.tar.zst
 wget --retry-connrefused --tries=30 "$OPUS_URL"   -O  ./opus-nano.pkg.tar.zst
+wget --retry-connrefused --tries=30 "$MESA_URL"   -O  ./mesa-mini.pkg.tar.zst
+wget --retry-connrefused --tries=30 "$RADEON_URL" -O  ./vulkan-radeon.pkg.tar.zst
 
 pacman -U --noconfirm ./*.pkg.tar.zst
 rm -f ./*.pkg.tar.zst
