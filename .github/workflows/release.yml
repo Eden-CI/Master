@@ -17,7 +17,7 @@ jobs:
   build:
     name: Build
     needs: [parse]
-    uses: Eden-CI/Workflow@main
+    uses: https://github.com/Eden-CI/Workflow@master
     with:
       ref: ${{ needs.parse.outputs.ref }}
       build-id: 'eden-master'
@@ -38,7 +38,7 @@ jobs:
           persist-credentials: false
 
       - name: Package artifacts nicely
-        uses: Eden-CI/Workflow/util/pack/action.yml@main
+        uses: Eden-CI/Workflow/util/pack/action.yml@master
         with:
           ref: ${{ needs.parse.outputs.ref }}
 
